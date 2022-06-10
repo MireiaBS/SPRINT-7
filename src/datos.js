@@ -9,5 +9,31 @@ const arrDatos = [
     priceItem: 200
     },
 ]
+// ---------------- REFACTORIZAR ---------------------------------------------//
+
+/* 
+
+  function getName(i) {
+    let arrProp = []
+    for (let property in budget) {    
+    arrProp.push(property)    
+    }
+    return arrProp[i]
+  }
+
+
+const datosPrecios = arrDatos.map((dato, i) => {
+    return (
+      <p key={i}>
+        <input          
+          type="checkbox"
+          name={getName(i)}
+          onChange={handleCheck} 
+          /* defaultValue=''
+        />{" "}
+        <Escena txt={dato.txt} />
+      </p>
+    );
+  }); */
 
 export default arrDatos;

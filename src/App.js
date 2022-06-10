@@ -3,54 +3,53 @@ import "./App.css";
 import arrDatos from "./datos";
 import Escena from "./components/Escena/escena";
 
+
+
 function App() {
+
   const [price, setPrice] = useState("0");
-  const [checked, setChecked] = useState({
+  const [budget, setBudget] = useState({
     web: false,
     seo: false,
     ads: false,
     pages: 1,
-    languges: 1
+    languages: 1
   });
-  console.log(checked)
- 
 
   const handleCheck = (event) => {
-    let actualList = [...checked];
-    let target = event.target.checked
-    if (target) {
-      actualList = [...checked, target]
-    } else {
-      
-    }
-    setChecked(actualList);
-    console.log(actualList)
-  }
-
- /*  let checkedItems = checked.length
-    ? checked.reduce((total, item) => {
-        return total + item;
-      })
-    : 0; */
+    let {name,type} = event.target
+    console.log(name, type)
   
-
-  const datosPrecios = arrDatos.map((dato, i) => {
-    return (
-      <p key={i}>
-        <input          
-          type="checkbox"
-          name="checkbox"
-          onChange={handleCheck}
-        />{" "}
-        <Escena txt={dato.txt} />
-      </p>
-    );
-  });
+  }
 
   return (
     <div className="App">
       <h3> ¿Que quieres hacer?</h3>
-      {datosPrecios}
+      <p>
+        <input          
+          type="checkbox"
+          name='web'
+          onChange={handleCheck}   
+          value='500'    
+        />{" "}
+      Una página web (500)</p>
+      <p>
+        <input          
+          type="checkbox"
+          name='seo'
+          onChange={handleCheck}  
+          value='300'        
+        />{" "}
+      Una consultoría SEO (300€)</p>
+      <p>
+        <input          
+          type="checkbox"
+          name='ads'
+          onChange={handleCheck} 
+          value='200'         
+        />{" "}
+     Una campaña de Google Ads (200€)</p>  
+
       <p> Precio: {price}€ </p>
     </div>
   );
