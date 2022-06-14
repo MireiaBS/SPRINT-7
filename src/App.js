@@ -25,16 +25,21 @@ function App() {
     let { name, type } = event.target;
     let newBudget = { ...budget };
 
-    newBudget[name] = !newBudget[name];
-    setBudget(newBudget);
-
     if (name === "web") {
-      changeDisplay();      
-    }
+      changeDisplay(); 
+      if (!event.target.checked ) {
+       
+        setPages(1);
+        setLanguages(1); 
+      }       
+    }  
+
+    newBudget[name] = !newBudget[name];
+    setBudget(newBudget); 
   };
 
   const changeDisplay = () => {
-    setDisplay(!display);    
+    setDisplay(!display);        
   }
 
   const changeNumberInput = (event) => {
@@ -44,11 +49,13 @@ function App() {
     if (name === "pages") {
       let sumPages = 
         (value === "+" && pages + 1) ||
-        (value === "-" && pages - 1);
+        (value === "-" && pages - 1)
+       
 
       newBudget[name] = sumPages;
       setPages(sumPages);
       setBudget(newBudget);
+
     } else if (name === "languages") {
       let sumLanguages =
         (value === "+" && languages + 1) || 
@@ -58,12 +65,7 @@ function App() {
       setLanguages(sumLanguages);
       setBudget(newBudget)
     }
-   /*  if (!display){
-      setPages(1);
-      setLanguages(1);
-      calculateTotal()
-          
-    }; */
+
   };
 
   const calculateTotal = (e) => {
@@ -89,6 +91,9 @@ function App() {
         numberInput={changeNumberInput}
         pages={pages}
         languages={languages}
+        setPages={setPages}
+        setLanguages={setLanguages}
+        
       />
 
       <p>
