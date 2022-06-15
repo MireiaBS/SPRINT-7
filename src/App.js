@@ -20,20 +20,31 @@ function App() {
   useEffect(() => {
     calculateTotal();
   }, [budget]);
-
+  
   const handleCheck = (event) => {
     let { name, type } = event.target;
     let newBudget = { ...budget };
+    let languageProp;
+    let pageProp;
+
+    for (let property in budget) {
+      if (property === 'pages') {
+        pageProp = property
+      } else if (property === 'languages') {
+        languageProp = property
+      }
+    };    
 
     if (name === "web") {
       changeDisplay(); 
-      if (!event.target.checked ) {
-       
-        setPages(1);
+      if (!event.target.checked ) {     
+        setPages(1)
         setLanguages(1); 
+        newBudget[pageProp] = 1;
+        newBudget[languageProp] = 1;
+        setBudget(newBudget)
       }       
     }  
-
     newBudget[name] = !newBudget[name];
     setBudget(newBudget); 
   };
@@ -45,27 +56,29 @@ function App() {
   const changeNumberInput = (event) => {
     let { name, value } = event.target;
     let newBudget = { ...budget };
+    let numberValue = Number(value)
 
     if (name === "pages") {
       let sumPages = 
         (value === "+" && pages + 1) ||
-        (value === "-" && pages - 1)
-       
+        (value === "-" && pages - 1) ||
+        (value > 0 && numberValue);         
 
       newBudget[name] = sumPages;
       setPages(sumPages);
-      setBudget(newBudget);
+       
 
     } else if (name === "languages") {
       let sumLanguages =
         (value === "+" && languages + 1) || 
-        (value === "-" && languages - 1);
+        (value === "-" && languages - 1) ||
+        (value > 0 && numberValue);
 
       newBudget[name] = sumLanguages;
       setLanguages(sumLanguages);
-      setBudget(newBudget)
+      
     }
-
+    setBudget(newBudget);
   };
 
   const calculateTotal = (e) => {
@@ -74,39 +87,41 @@ function App() {
       (budget.web && 500) +
       (budget.seo && 300) +
       (budget.ads && 200) +
-      ((budget.pages > 1 && budget.pages * budget.languages)* 30);
+      ((budget.pages > 1 || budget.languages > 1) && (budget.pages * budget.languages )* 30);
 
     setTotal(newTotal);
   };
 
   return (
-    <div className="App">
+    <div >
       <h3> ¿Que quieres hacer?</h3>
-      <p>
-        <input type="checkbox" name="web" onChange={handleCheck} value="500" />{" "}
-        Una página web (500)
-      </p>
-      <CreateInput
-        display={display}
-        numberInput={changeNumberInput}
-        pages={pages}
-        languages={languages}
-        setPages={setPages}
-        setLanguages={setLanguages}
-        
-      />
+      <form onSubmit={undefined} className="App">
+        <p>
+          <input type="checkbox" name="web"  onChange={handleCheck} value="500" />{" "}
+          Una página web (500)
+        </p>
+        <CreateInput
+          display={display}
+          numberInput={changeNumberInput}
+          pages={pages}
+          languages={languages}
+          setPages={setPages}
+          setLanguages={setLanguages}
+          
+        />
 
-      <p>
-        <input type="checkbox" name="seo" onChange={handleCheck} value="300" />{" "}
-        Una consultoría SEO (300€)
-      </p>
-      <p>
-        <input type="checkbox" name="ads" onChange={handleCheck} value="200" />{" "}
-        Una campaña de Google Ads (200€)
-      </p>
+        <p>
+          <input type="checkbox" name="seo" onChange={handleCheck} value="300" />{" "}
+          Una consultoría SEO (300€)
+        </p>
+        <p>
+          <input type="checkbox" name="ads" onChange={handleCheck} value="200" />{" "}
+          Una campaña de Google Ads (200€)
+        </p>
 
-      <p> Precio: {total}€ </p>
-    </div>
+        <p> Precio: {total}€ </p>
+      </form>
+    </div >
   );
 }
 
