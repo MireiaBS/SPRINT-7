@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocalStorage } from "./components/useLocalStorage";
 import "./App.css";
 import CreateInput from "./components/createInput";
-/* import { BrowserRouter, Routes, Route } from "react-router-dom"; */
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 /* import arrDatos from "./datos";
 import Escena from "./components/Escena/escena"; */
@@ -26,7 +26,7 @@ function App() {
   }, [budget]);
 
   useEffect(() => {
-    text && setBudget(budget);
+    setBudget(budget);
   }, [text]);
 
   const handleCheck = (event) => {
@@ -100,62 +100,74 @@ function App() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    /* let completeBudget = {...budget}
-    completeBudget.total = total;  */
+    let completeBudget = { ...budget }
+    completeBudget.total = total
+    setBudget(completeBudget)
     setText(budget);
     console.log(text);
   };
 
   return (
-    <div>
-      <h3> ¿Que quieres hacer?</h3>
-      <form className="App">
-        <p>
-          <input
-            type="checkbox"
-            name="web"
-            onChange={handleCheck}
-            value="500"
-          />{" "}
-          Una página web (500)
-        </p>
-        <CreateInput
-          display={display}
-          numberInput={changeNumberInput}
-          pages={pages}
-          languages={languages}
-          setPages={setPages}
-          setLanguages={setLanguages}
-        />
+    <BrowserRouter>
 
-        <p>
-          <input
-            type="checkbox"
-            name="seo"
-            onChange={handleCheck}
-            value="300"
-          />{" "}
-          Una consultoría SEO (300€)
-        </p>
-        <p>
-          <input
-            type="checkbox"
-            name="ads"
-            onChange={handleCheck}
-            value="200"
-          />{" "}
-          Una campaña de Google Ads (200€)
-        </p>
+      <Link to='/' > Inicio </Link>
+      <Link to='/presupuesto' > Presupuesto</Link>
 
-        <p> Precio: {total}€ </p>
-        <input
-          type="button"
-          name="submit"
-          onClick={onSubmit}
-          value="Guardar Presupuesto"
-        />
-      </form>
-    </div>
+      <Routes>
+        <Route path='/' element={<div>Bienvenido!</div>}></Route>
+
+        <Route path='/presupuesto' element={<>
+          <h3> ¿Que quieres hacer?</h3>
+          <form className="App">
+            <p>
+              <input
+                type="checkbox"
+                name="web"
+                onChange={handleCheck}
+                value="500"
+              />{" "}
+              Una página web (500)
+            </p>
+            <CreateInput
+              display={display}
+              numberInput={changeNumberInput}
+              pages={pages}
+              languages={languages}
+              setPages={setPages}
+              setLanguages={setLanguages}
+            />
+            <p>
+              <input
+                type="checkbox"
+                name="seo"
+                onChange={handleCheck}
+                value="300"
+              />{" "}
+              Una consultoría SEO (300€)
+            </p>
+            <p>
+              <input
+                type="checkbox"
+                name="ads"
+                onChange={handleCheck}
+                value="200"
+              />{" "}
+              Una campaña de Google Ads (200€)
+            </p>
+
+            <p> Precio: {total}€ </p>
+            <input
+              type="button"
+              name="submit"
+              onClick={onSubmit}
+              value="Guardar Presupuesto"
+            />
+          </form></>
+        }>
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
