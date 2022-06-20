@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "./components/useLocalStorage";
-import "./App.css";
+import "./css/App.css"
 import CreateInput from "./components/createInput";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Modals } from "./components/Modals";
 
 /* import arrDatos from "./datos";
 import Escena from "./components/Escena/escena"; */
@@ -69,7 +70,7 @@ function App() {
     if (name === "pages") {
       let sumPages =
         (value === "+" && pages + 1) ||
-        (value === "-" && pages - 1) ||
+        ((value === "-" && pages > 1) && pages - 1) ||
         (value > 0 && numberValue);
 
       newBudget[name] = sumPages;
@@ -77,7 +78,7 @@ function App() {
     } else if (name === "languages") {
       let sumLanguages =
         (value === "+" && languages + 1) ||
-        (value === "-" && languages - 1) ||
+        ((value === "-" && languages != 0) ? languages - 1 : setLanguages(1)) ||
         (value > 0 && numberValue);
 
       newBudget[name] = sumLanguages;
@@ -112,13 +113,13 @@ function App() {
 
       <Link to='/' > Inicio </Link>
       <Link to='/presupuesto' > Presupuesto</Link>
-
       <Routes>
         <Route path='/' element={<div>Bienvenido!</div>}></Route>
 
-        <Route path='/presupuesto' element={<>
+        <Route path='/presupuesto' element={
+        <>
           <h3> ¿Que quieres hacer?</h3>
-          <form className="App">
+          <form className="App">            
             <p>
               <input
                 type="checkbox"
@@ -136,6 +137,7 @@ function App() {
               setPages={setPages}
               setLanguages={setLanguages}
             />
+
             <p>
               <input
                 type="checkbox"
@@ -162,10 +164,10 @@ function App() {
               onClick={onSubmit}
               value="Guardar Presupuesto"
             />
-          </form></>
+          </form>
+        </>
         }>
         </Route>
-
       </Routes>
     </BrowserRouter>
   );
