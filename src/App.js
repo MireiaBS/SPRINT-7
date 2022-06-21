@@ -98,54 +98,57 @@ function App() {
         budget.pages * budget.languages * 30);
 
     setTotal(newTotal);
-    let newBudget = {...budgetSaved}
+    let newBudget = { ...budgetSaved }
     newBudget.total = newTotal;
     setBudgetSaved(newBudget)
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();       
+    e.preventDefault();
     setText(budget);
 
-    const {web, seo, ads,pages, languages} = budget 
-    setBudgetSaved({...budgetSaved,web,seo,ads,pages,languages,total});
+    const { web, seo, ads, pages, languages } = budget
+    setBudgetSaved({ ...budgetSaved, web, seo, ads, pages, languages, total });
     showBudgetSaved();
-    
   };
-
-  
 
   const budgetName = (e) => {
     const nameBudget = e.target.value
-    const newNameBudget = {...budgetSaved};
-    newNameBudget.budgetName = nameBudget;   
-    setBudgetSaved(newNameBudget)    
-  
+    const newNameBudget = { ...budgetSaved };
+    newNameBudget.budgetName = nameBudget;
+    setBudgetSaved(newNameBudget)
   };
 
   const userName = (e) => {
     const nameUser = e.target.value
-    const newNameUser = {...budgetSaved};
+    const newNameUser = { ...budgetSaved };
     newNameUser.userName = nameUser;
     setBudgetSaved(newNameUser);
   };
 
+  const getDate = () => {
+    let date = new Date();
+    let fullDate = 'Presupuesto guardado el ' 
+    + date.getDay() + '/' 
+    + date.getMonth() + '/' 
+    + date.getFullYear() + ' a las '
+    + date.getHours() + ':' 
+    + date.getMinutes();
+    return fullDate;
+
+  }
+
   const showBudgetSaved = () => {
-    const { userName, budgetName, languages, pages , web, seo, ads} = budgetSaved
+    const { userName, budgetName, languages, pages, web, seo, ads } = budgetSaved
     const text = <>
-      <p>Hora del presupuesto:</p>
+      <p><strong>Hora del presupuesto:</strong> {getDate()}</p>
       <p><strong>Nombre de cliente: </strong>{userName}</p>
       <p><strong>Nombre del presupuesto: </strong>{budgetName}</p>
       <p><strong>Servicios elegidos:</strong> {web && `Página Web: ${pages} página/s con ${languages} idioma/s. `}{seo && 'Consultoría SEO.'} {ads && 'Goodle Ads'}</p>
       <p><strong>Precio total: </strong>{total}</p>
-      
-    </>
-
-    console.log(web)
+    </>    
     return text;
-    
   }
-  
 
   return (
     <BrowserRouter>
@@ -156,64 +159,64 @@ function App() {
         <Route path='/' element={<div>Bienvenido!</div>}></Route>
 
         <Route path='/presupuesto' element={
-        <>
-        <form className="App">
-          <h2> Escribe tus datos para guardar el presupuesto:</h2>
-          <div>
-              Nombre del cliente: 
-              <input type='text' placeholder="Escribe tu nombre" onChange={userName}/><br/> 
-              Nombre presupuesto: <input type='text' placeholder="Escribe tu nombre" onChange={budgetName} />
-          </div>
-          <h3> ¿Que quieres hacer?</h3>
-                      
-            <p>
-              <input
-                type="checkbox"
-                name="web"
-                onChange={handleCheck}
-                value="500"
-              />{" "}
-              Una página web (500)
-            </p>
-            <CreateInput
-              display={display}
-              numberInput={changeNumberInput}
-              pages={pages}
-              languages={languages}
-              setPages={setPages}
-              setLanguages={setLanguages}
-            />
+          <>
+            <form className="App">
+              <h2> Escribe tus datos para guardar el presupuesto:</h2>
+              <div>
+                Nombre del cliente:
+                <input type='text' placeholder="Escribe tu nombre" onChange={userName} /><br />
+                Nombre presupuesto: <input type='text' placeholder="Escribe tu nombre" onChange={budgetName} />
+              </div>
+              <h3> ¿Que quieres hacer?</h3>
 
-            <p>
-              <input
-                type="checkbox"
-                name="seo"
-                onChange={handleCheck}
-                value="300"
-              />{" "}
-              Una consultoría SEO (300€)
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                name="ads"
-                onChange={handleCheck}
-                value="200"
-              />{" "}
-              Una campaña de Google Ads (200€)
-            </p>
+              <p>
+                <input
+                  type="checkbox"
+                  name="web"
+                  onChange={handleCheck}
+                  value="500"
+                />{" "}
+                Una página web (500)
+              </p>
+              <CreateInput
+                display={display}
+                numberInput={changeNumberInput}
+                pages={pages}
+                languages={languages}
+                setPages={setPages}
+                setLanguages={setLanguages}
+              />
 
-            <p> Precio: {total}€ </p>
-            <input
-              type="button"
-              name="submit"
-              onClick={onSubmit}
-              value="Guardar Presupuesto"
-            />
-          </form>
-          <h3>Listado de presupuestos guardados:</h3>
-          <div>{showBudgetSaved()}</div>
-        </>
+              <p>
+                <input
+                  type="checkbox"
+                  name="seo"
+                  onChange={handleCheck}
+                  value="300"
+                />{" "}
+                Una consultoría SEO (300€)
+              </p>
+              <p>
+                <input
+                  type="checkbox"
+                  name="ads"
+                  onChange={handleCheck}
+                  value="200"
+                />{" "}
+                Una campaña de Google Ads (200€)
+              </p>
+
+              <p> Precio: {total}€ </p>
+              <input
+                type="button"
+                name="submit"
+                onClick={onSubmit}
+                value="Guardar Presupuesto"
+              />
+            </form>
+            <h3>Listado de presupuestos guardados:</h3>
+            <div>{showBudgetSaved()}</div>
+          </>
         }>
         </Route>
       </Routes>
