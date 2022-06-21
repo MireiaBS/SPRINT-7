@@ -3,6 +3,7 @@ import { useLocalStorage } from "./components/useLocalStorage";
 import "./css/App.css"
 import CreateInput from "./components/createInput";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BudgetInput } from "./components/Budget";
 
 
 /* import arrDatos from "./datos";
@@ -109,7 +110,7 @@ function App() {
 
     const { web, seo, ads, pages, languages } = budget
     setBudgetSaved({ ...budgetSaved, web, seo, ads, pages, languages, total });
-    showBudgetSaved();
+    
   };
 
   const budgetName = (e) => {
@@ -138,17 +139,7 @@ function App() {
 
   }
 
-  const showBudgetSaved = () => {
-    const { userName, budgetName, languages, pages, web, seo, ads } = budgetSaved
-    const text = <>
-      <p><strong>Hora del presupuesto:</strong> {getDate()}</p>
-      <p><strong>Nombre de cliente: </strong>{userName}</p>
-      <p><strong>Nombre del presupuesto: </strong>{budgetName}</p>
-      <p><strong>Servicios elegidos:</strong> {web && `Página Web: ${pages} página/s con ${languages} idioma/s. `}{seo && 'Consultoría SEO.'} {ads && 'Goodle Ads'}</p>
-      <p><strong>Precio total: </strong>{total}</p>
-    </>    
-    return text;
-  }
+
 
   return (
     <BrowserRouter>
@@ -215,7 +206,11 @@ function App() {
               />
             </form>
             <h3>Listado de presupuestos guardados:</h3>
-            <div>{showBudgetSaved()}</div>
+            <BudgetInput               
+              budget={budgetSaved}
+              date= {getDate()}
+              total = {total}
+            />
           </>
         }>
         </Route>
