@@ -1,2 +1,8 @@
-
+.budget-input {
+    padding-left: 20px;
+    margin-bottom: 1cm;
+    border: 5px solid rgb(0, 115, 119);
+    border-radius: 2em;
+    background-color: rgb(187, 235, 210);
+}
   

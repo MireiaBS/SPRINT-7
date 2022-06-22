@@ -102,19 +102,23 @@ function App() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    
     let newBudget = {...budget}
     newBudget.total = total
-    let updateBudget = [];
-    updateBudget.push(newBudget)
-    
+    let updateBudget = []
 
-    setBudgetSaved(updateBudget)
+    if (!budget.userName || !budget.budgetName || budget.price === 0) {
+      alert('Rellene los campos antes de guardar');
+      e.preventDefault();
+    } 
+    else {
+      updateBudget = [...budgetSaved, newBudget]
+      setBudgetSaved(updateBudget)  
+      setText(budgetSaved)
+    }
     
-
-    setBudget(newBudget)       
-    setText(newBudget);
-  };
+  }; 
+ 
 
   const budgetName = (e) => {
     const nameBudget = e.target.value
@@ -206,7 +210,7 @@ function App() {
               />
             
             <h3>Listado de presupuestos guardados:</h3>
-            <BudgetInput               
+            <BudgetInput                            
               budget={budgetSaved}
               date= {getDate()}
             />
