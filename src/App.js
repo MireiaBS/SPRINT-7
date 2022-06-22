@@ -22,7 +22,7 @@ function App() {
     languages: 1,
   });
   const [text, setText] = useLocalStorage({}, "");
-  const [budgetSaved, setBudgetSaved] = useState({});
+  const [budgetSaved, setBudgetSaved] = useState([]);
 
   useEffect(() => {
     calculateTotal(total);
@@ -99,32 +99,35 @@ function App() {
         budget.pages * budget.languages * 30);
 
     setTotal(newTotal);
-    let newBudget = { ...budgetSaved }
-    newBudget.total = newTotal;
-    setBudgetSaved(newBudget)
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setText(budget);
-
-    const { web, seo, ads, pages, languages } = budget
-    setBudgetSaved({ ...budgetSaved, web, seo, ads, pages, languages, total });
+    let newBudget = {...budget}
+    newBudget.total = total
+    let updateBudget = [];
+    updateBudget.push(newBudget)
     
+
+    setBudgetSaved(updateBudget)
+    
+
+    setBudget(newBudget)       
+    setText(newBudget);
   };
 
   const budgetName = (e) => {
     const nameBudget = e.target.value
-    const newNameBudget = { ...budgetSaved };
+    const newNameBudget = { ...budget};
     newNameBudget.budgetName = nameBudget;
-    setBudgetSaved(newNameBudget)
+    setBudget(newNameBudget)
   };
 
   const userName = (e) => {
     const nameUser = e.target.value
-    const newNameUser = { ...budgetSaved };
+    const newNameUser = { ...budget};
     newNameUser.userName = nameUser;
-    setBudgetSaved(newNameUser);
+    setBudget(newNameUser);
   };
 
   const getDate = () => {
@@ -138,9 +141,6 @@ function App() {
     return fullDate;
 
   }
-
-
-
   return (
     <BrowserRouter>
 
@@ -204,13 +204,13 @@ function App() {
                 onClick={onSubmit}
                 value="Guardar Presupuesto"
               />
-            </form>
+            
             <h3>Listado de presupuestos guardados:</h3>
             <BudgetInput               
               budget={budgetSaved}
               date= {getDate()}
-              total = {total}
             />
+            </form>
           </>
         }>
         </Route>
