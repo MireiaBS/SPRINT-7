@@ -1,8 +1,49 @@
 .budget-input {
     padding-left: 20px;
     margin-bottom: 1cm;
-    border: 5px solid rgb(0, 115, 119);
+    margin-top: 1cm;
+    border: 1px solid rgba(151, 184, 222);
     border-radius: 2em;
-    background-color: rgb(187, 235, 210);
+    background-color: rgb(0, 115, 119, 0.5);   
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
 }
-  
+.budget-input:hover {
+    background-color: rgb(0, 115, 119);
+    color:aliceblue;
+}
+
+.button-budget {
+    border-radius: 1em;
+    border: 8px solid rgb(12, 175, 181);
+    background-color: rgb(12, 175, 181);
+    padding: 6px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    font-size: 1em;
+}
+
+.button-budget:hover {
+    background-color: rgb(0, 115, 119);
+    border-color: rgb(0, 115, 119);
+    color:aliceblue;
+}
+.no-underline {
+    text-decoration: none;
+}
+
+.button-order {
+    border-radius: 1em;
+    border: 2px solid  rgb(12, 175, 181);
+    background-color:  rgb(12, 175, 181);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    font-size: 1em;
+    margin: 2px;
+}
+.button-order:hover {
+    background-color: rgb(0, 115, 119);
+    border-color: rgb(0, 115, 119);
+    color:aliceblue;
+    
+}

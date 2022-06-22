@@ -102,54 +102,71 @@ function App() {
   };
 
   const onSubmit = (e) => {
-    
-    let newBudget = {...budget}
+
+    let newBudget = { ...budget }
     newBudget.total = total
     let updateBudget = []
 
     if (!budget.userName || !budget.budgetName || budget.price === 0) {
       alert('Rellene los campos antes de guardar');
       e.preventDefault();
-    } 
+    }
     else {
       updateBudget = [...budgetSaved, newBudget]
-      setBudgetSaved(updateBudget)  
+      setBudgetSaved(updateBudget)
       setText(budgetSaved)
     }
-    
-  }; 
- 
+
+  };
+
 
   const budgetName = (e) => {
     const nameBudget = e.target.value
-    const newNameBudget = { ...budget};
+    const newNameBudget = { ...budget };
     newNameBudget.budgetName = nameBudget;
     setBudget(newNameBudget)
   };
 
   const userName = (e) => {
     const nameUser = e.target.value
-    const newNameUser = { ...budget};
+    const newNameUser = { ...budget };
     newNameUser.userName = nameUser;
     setBudget(newNameUser);
   };
 
   const getDate = () => {
     let date = new Date();
-    let fullDate = 'Presupuesto guardado el ' 
-    + date.getDay() + '/' 
-    + date.getMonth() + '/' 
-    + date.getFullYear() + ' a las '
-    + date.getHours() + ':' 
-    + date.getMinutes();
+    let fullDate = 'Presupuesto guardado el '
+      + date.getDay() + '/'
+      + date.getMonth() + '/'
+      + date.getFullYear() + ' a las '
+      + date.getHours() + ':'
+      + date.getMinutes();
     return fullDate;
 
   }
+
+  const alfabeticOrder = () => {    
+   /*  function SortArray (x,y) {
+      return x.userName.localeCompare(y.userName)
+    }
+    let orderAlfabetic = budgetSaved.sort(SortArray);
+    setBudgetSaved(orderAlfabetic) */
+  };
+
+  const dateOrder = () => {    
+   /*  function SortArray (x,y) {
+      return x.userName.localeCompare(y.userName)
+    }
+    let orderAlfabetic = budgetSaved.sort(SortArray);
+    setBudgetSaved(orderAlfabetic) */
+  }
+
   return (
     <BrowserRouter>
 
-      <Link to='/' > Inicio </Link>
-      <Link to='/presupuesto' > Presupuesto</Link>
+      <Link to='/' className="no-underline" > INICIO </Link>
+      <Link to='/presupuesto' className="no-underline"> PRESUPUESTO</Link>
       <Routes>
         <Route path='/' element={<div>Bienvenido!</div>}></Route>
 
@@ -203,17 +220,23 @@ function App() {
 
               <p> Precio: {total}€ </p>
               <input
+                className="button-budget"
                 type="button"
                 name="submit"
                 onClick={onSubmit}
                 value="Guardar Presupuesto"
               />
-            
-            <h3>Listado de presupuestos guardados:</h3>
-            <BudgetInput                            
-              budget={budgetSaved}
-              date= {getDate()}
-            />
+
+              <h3>Listado de presupuestos guardados.</h3>
+              <div> Ordenar por:
+                <input className="button-order" type='button' value='A-Z' onClick={alfabeticOrder} />
+                <input className="button-order" type='button' value='Fecha' onClick={dateOrder}/>
+                <input className="button-order" type='button' value='Reiniciar' onClick={undefined}/>
+              </div>
+              <BudgetInput
+                budget={budgetSaved}
+                date={getDate()}
+              />
             </form>
           </>
         }>
