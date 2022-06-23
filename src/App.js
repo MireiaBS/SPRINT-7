@@ -5,7 +5,6 @@ import CreateInput from "./components/createInput";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { BudgetInput } from "./components/Budget";
 
-
 /* import arrDatos from "./datos";
 import Escena from "./components/Escena/escena"; */
 
@@ -23,14 +22,21 @@ function App() {
   });
   const [text, setText] = useLocalStorage({}, "");
   const [budgetSaved, setBudgetSaved] = useState([]);
+  const [time, setTime] = useState('')
+  const [order, setOrder] = useState([])
 
   useEffect(() => {
-    calculateTotal(total);
+    
+    calculateTotal(total);    
   }, [budget]);
 
-  useEffect(() => {
+  useEffect(() => {    
     setBudget(budget);
   }, [text]);
+
+  useEffect(() => {    
+    getDate();
+  }, [budgetSaved]);
 
   const handleCheck = (event) => {
     let { name } = event.target;
@@ -102,9 +108,10 @@ function App() {
   };
 
   const onSubmit = (e) => {
-
+    
     let newBudget = { ...budget }
     newBudget.total = total
+    
     let updateBudget = []
 
     if (!budget.userName || !budget.budgetName || budget.price === 0) {
@@ -112,6 +119,7 @@ function App() {
       e.preventDefault();
     }
     else {
+      newBudget.date = time
       updateBudget = [...budgetSaved, newBudget]
       setBudgetSaved(updateBudget)
       setText(budgetSaved)
@@ -142,17 +150,16 @@ function App() {
       + date.getFullYear() + ' a las '
       + date.getHours() + ':'
       + date.getMinutes();
-    return fullDate;
-
+    setTime(fullDate);    
   }
 
-  const alfabeticOrder = () => {    
-   /*  function SortArray (x,y) {
+  const alfabeticOrder = () => {        
+    function SortArray (x,y) {
       return x.userName.localeCompare(y.userName)
-    }
-    let orderAlfabetic = budgetSaved.sort(SortArray);
-    setBudgetSaved(orderAlfabetic) */
-  };
+      }
+      let orderAlfabetic = budgetSaved.sort(SortArray);          
+      setOrder(orderAlfabetic)
+  }; 
 
   const dateOrder = () => {    
    /*  function SortArray (x,y) {
@@ -235,7 +242,6 @@ function App() {
               </div>
               <BudgetInput
                 budget={budgetSaved}
-                date={getDate()}
               />
             </form>
           </>
