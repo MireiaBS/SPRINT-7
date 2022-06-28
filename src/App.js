@@ -126,8 +126,9 @@ function App() {
 
   const budgetName = (e) => {
     const nameBudget = e.target.value;
+    const nameBudgetOk = nameBudget.toUpperCase();
     const newNameBudget = { ...budget };
-    newNameBudget.budgetName = nameBudget;
+    newNameBudget.budgetName = nameBudgetOk;
     setBudget(newNameBudget);
   };
 
@@ -165,6 +166,14 @@ function App() {
     } else {
       setOrder(budgetSaved)    
     };
+  }
+
+  const searchName = (e) => {
+    const {value} = e.target
+    const valueOk = value.toUpperCase();
+    
+    const searchResult = budgetSaved.filter( element => element.budgetName === valueOk)
+    setOrder(searchResult)
   }
   
 
@@ -274,7 +283,8 @@ function App() {
                     type="button"
                     value="Reiniciar"
                     onClick={(e) => changeOrder(e)}
-                  />
+                  />                  
+                  <div className="buscador"> Buscar por nombre: <input onChange={searchName} type='text' placeholder='Escriba el nombre'/></div>
                 </div>
                 <BudgetInput budget={budgetSaved} order={order}/>
               </form>
