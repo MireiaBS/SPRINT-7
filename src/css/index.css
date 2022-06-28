@@ -1,6 +1,8 @@
 body {
   margin: 2.5cm;
-  background-image: url(../images/fondo.webp);  
+  background-image: url(../images/fondo.webp); 
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
 }

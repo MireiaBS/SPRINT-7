@@ -33,8 +33,10 @@ function App() {
     setBudget(budget);
   }, [text]);
 
-  useEffect(() => {
+  useEffect(() => {    
     getDate();
+    const copy = budgetSaved.map(element => element)
+    setOrder(copy)
   }, [budgetSaved]);
 
   const handleCheck = (event) => {
@@ -109,7 +111,6 @@ function App() {
   const onSubmit = (e) => {
     let newBudget = { ...budget };
     newBudget.total = total;
-
     let updateBudget = [];
 
     if (!budget.userName || !budget.budgetName || budget.price === 0) {
@@ -151,26 +152,21 @@ function App() {
       date.getMinutes();
     setTime(fullDate);
   };
-
-  const alfabeticOrder = () => {
-    function SortArray(x, y) {
-      return x.userName.localeCompare(y.userName);
-    }
-    let orderAlfabetic = budgetSaved.sort(SortArray);
-    setOrder(orderAlfabetic);
-  };
-
-  const dateOrder = () => {
-    let orderDate = budgetSaved.sort(
-      (a, b) => new Date(a.fechas).getTime() < new Date(b.fechas).getTime()
-    );
-    setOrder(orderDate);
-  };
-
-  const resetOrder = () =>{
-    setOrder(budgetSaved)
-    console.log('budget:', budget, 'saveBudget:', budgetSaved)
+  const changeOrder = (e) => {
+    const id = Number(e.target.id)   
+    const copy = budgetSaved.map(element => element)
+   
+    if (id === 1) {      
+      let alfabetic= copy.sort((x,y) => x.userName.localeCompare(y.userName));
+      setOrder(alfabetic);
+    } else if (id === 2) {
+      let orderDate = copy.sort((a, b) => b.date - a.date);
+      setOrder(orderDate);
+    } else {
+      setOrder(budgetSaved)    
+    };
   }
+  
 
   return (
     <BrowserRouter>
@@ -259,22 +255,25 @@ function App() {
                   {" "}
                   Ordenar por:
                   <input
+                    id="1"
                     className="button-order"
                     type="button"
                     value="A-Z"
-                    onClick={alfabeticOrder}
+                    onClick={(e) => changeOrder(e)}
                   />
                   <input
+                    id="2"
                     className="button-order"
                     type="button"
                     value="Fecha"
-                    onClick={dateOrder}
+                    onClick={(e) => changeOrder(e)}
                   />
                   <input
+                    id="3"
                     className="button-order"
                     type="button"
                     value="Reiniciar"
-                    onClick={resetOrder}
+                    onClick={(e) => changeOrder(e)}
                   />
                 </div>
                 <BudgetInput budget={budgetSaved} order={order}/>
