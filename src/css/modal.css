@@ -3,14 +3,14 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 900;
     background-color: cadetblue;
-    border-radius: 50%;    
+    border-radius: 50%;
     width: 1.6em;
     height: 1.6em;
 }
 
-.modal{
+.modal {
     position: fixed;
-    z-index: 999;    
+    z-index: 999;
     top: 0;
     left: 0;
     width: 100%;
@@ -21,20 +21,21 @@
     justify-content: center;
     align-items: center;
 }
+
 .modal.is-open {
-    display:flex;
+    display: flex;
 }
 
 .modal-container {
     padding: 0.5cm;
     width: 15cm;
-    height: auto;    
-    border: 5px solid rgb(36, 98, 132) ;
+    height: auto;
+    border: 5px solid rgb(36, 98, 132);
     border-radius: 2em;
     background-color: aliceblue;
     text-align: center;
-    color:black;
+    color: black;
     font-weight: 600;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
+
 }
