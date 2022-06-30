@@ -20,8 +20,8 @@ function App() {
     pages: 1,
     languages: 1,
   });
-  const [text, setText] = useLocalStorage({}, "");
-  const [budgetSaved, setBudgetSaved] = useState([]);
+  const [text, setText] = useLocalStorage('Text:', "");
+  const [budgetSaved, setBudgetSaved] = useState(text || []);
   const [time, setTime] = useState("");
   const [order, setOrder] = useState([]);
 
@@ -120,7 +120,7 @@ function App() {
       newBudget.date = time;
       updateBudget = [...budgetSaved, newBudget];
       setBudgetSaved(updateBudget);
-      setText(budgetSaved);
+      setText(updateBudget);
     }
   };
 
@@ -153,6 +153,7 @@ function App() {
       date.getMinutes();
     setTime(fullDate);
   };
+
   const changeOrder = (e) => {
     const id = Number(e.target.id)   
     const copy = budgetSaved.map(element => element)
