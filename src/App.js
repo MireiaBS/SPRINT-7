@@ -5,9 +5,6 @@ import CreateInput from "./components/createInput";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { BudgetInput } from "./components/Budget";
 
-/* import arrDatos from "./datos";
-import Escena from "./components/Escena/escena"; */
-
 function App() {
   const [total, setTotal] = useState(0);
   const [display, setDisplay] = useState(false);
@@ -173,7 +170,7 @@ function App() {
     const {value} = e.target
     const valueOk = value.toUpperCase();
     
-    const searchResult = budgetSaved.filter( element => element.budgetName === valueOk)
+    const searchResult = budgetSaved.filter( element => element.budgetName.includes(valueOk))
     setOrder(searchResult)
   }
   
